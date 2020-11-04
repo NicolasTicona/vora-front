@@ -1,0 +1,4 @@
+export enum SELECTION_STATES {
+    WAS_SABED,
+    IS_ASSIGNED
+}

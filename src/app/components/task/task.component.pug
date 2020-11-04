@@ -1,0 +1,9 @@
+.task-container.sdw-str((click)="openDetailModal()")
+    h1 {{data.name}}
+
+    p {{data.description}}
+
+    p {{formatDate(data.finish_at)}}
+
+    p {{getCountString(data.count_users)}}
+    //- collaborators-images([size]="'small'", [items]="data.collaborators")

@@ -1,0 +1,14 @@
+.dashboard-container
+    
+    div(*ngIf="tasks.length > 0; else elseif1")
+        task(*ngFor="let task of tasks", [data]="task")
+        
+    ng-template(#elseif1)
+        span ¡Crea tu primera tarea!
+    
+    button(
+        mat-fab, 
+        color="primary", 
+        (click)="createTask()",
+        matTooltip="Crear nueva tarea")
+        mat-icon() add

@@ -1,0 +1,48 @@
+:host
+    min-width: 300px
+
+header
+    display: flex 
+    flex-direction: row
+    justify-content: space-between
+    
+.collaborators-container
+    box-sizing: border-box
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-content: center
+    overflow: hidden
+    cursor: pointer
+
+    .collaborator-item
+        width: 90%
+        padding: 10px
+        box-sizing: border-box
+        margin: 10px
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        flex-wrap: wrap
+        position: relative
+
+        button
+            position: absolute
+            right: 0
+            top: 50%
+            transform: translateY(-50%)
+        h3 
+            font-size: 14px
+            font-weight: bold
+            width: 50%
+        img
+            vertical-align: top
+            margin-right: 10px
+            width: 30%
+
+.disabled
+    background-color: #ebebeb
+    cursor: auto
+
+.selected
+    background-color: #5afcb0

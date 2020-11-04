@@ -1,0 +1,36 @@
+ng-container(*ngIf="showProgress")
+    mat-progress-bar(mode="indeterminate")
+
+header
+    h1(mat-dialog-title) Colaboradores
+    button(mat-button, (click)="closeModal()") Close
+
+mat-dialog-content
+    .collaborators-container
+        .collaborator-item.sdw-str(
+            *ngFor="let colab of data.collaborators",
+            [class.disabled]="colab.disabled",
+            [class.selected]="isInSelected(colab)",
+            (click)="selectCollaborator(colab)")
+
+            button(
+                mat-icon-button,
+                [matMenuTriggerFor]="menu", 
+                *ngIf="colab.disabled",
+                color="primary")
+                mat-icon more_vert
+
+            img(src="/assets/user.png")
+            h3 {{colab.fullname}}
+            //- span {{colab.state}}
+
+            mat-menu(#menu="matMenu")
+                button(mat-menu-item, (click)="deleteFromTask(colab)") Eliminar
+
+
+mat-dialog-actions()
+    button(
+        mat-raised-button, 
+        color="primary",
+        [disabled]="collaboratorsSelected.length == 0",
+        (click)="asignCollaborator()") Asignar colaborador

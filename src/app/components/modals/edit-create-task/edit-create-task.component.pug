@@ -1,0 +1,54 @@
+ng-container(*ngIf="showProgress")
+    mat-progress-bar(mode="indeterminate")
+
+header
+    h1(mat-dialog-title) {{data.modalTitle || 'Crear'}}
+    button(mat-button, (click)="closeModal()") Close
+
+mat-dialog-content
+
+    form.task-form([formGroup]="form")
+
+        mat-form-field.field-title  
+            mat-label Título
+            input(
+                matInput, 
+                type="text", 
+                formControlName="name")
+
+        mat-form-field.field-description
+            mat-label Descripción
+            textarea(
+                matInput,
+                maxLength="500",
+                formControlName="description")
+            mat-hint(align="end") {{_description.value?.length || 0}} / 500
+
+        mat-form-field.field-date
+            mat-label Fecha límite
+            input(
+                matInput, 
+                [matDatepicker]="picker",
+                formControlName="finish_at")
+            mat-datepicker-toggle(matSuffix, [for]="picker")
+            mat-datepicker(#picker)
+
+        .group-collaborators
+            span(*ngIf="collaboratorsView.length == 0") Agregar Collaboradores
+            button(
+                mat-icon-button, 
+                type="button",
+                color="primary", 
+                matTooltip="Agregar colaboradores",
+                (click)="asignCollaborators()")
+                
+                mat-icon() add_circle
+
+            collaborators-images([size]="'small'", [items]="collaboratorsView")
+
+mat-dialog-actions
+    button(
+        mat-raised-button, 
+        color="primary",
+        [disabled]="form.invalid",
+        (click)="saveForm()") {{data.state == 'ACTUALIZAR' ? 'Guardar' : 'Crear' }} tarea

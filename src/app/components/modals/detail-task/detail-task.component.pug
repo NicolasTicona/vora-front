@@ -1,0 +1,15 @@
+ng-container(*ngIf="showProgress")
+    mat-progress-bar(mode="indeterminate")
+
+header
+    h1(mat-dialog-title) {{data.name}}
+    button(mat-button, (click)="closeModal()") Close
+
+mat-dialog-content
+    p {{data.description}}
+
+    p Fecha límite: {{formatDate(data.finish_at)}}
+
+    collaborators-images([size]="'small'", [items]="collaborators")
+
+    button(mat-raised-button, (click)="openEditTaskModal()") Editar
