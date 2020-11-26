@@ -19,6 +19,7 @@ import { AsignViewCollaboratorsComponent } from './components/modals/asign-view-
 import { DashboardService } from './services/dashboard.service';
 import { UsersService } from './services/users.service';
 import { DetailTaskComponent } from './components/modals/detail-task/detail-task.component';
+import { FormatFinishDateComponent } from './components/shared/format-finish-date/format-finish-date.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DetailTaskComponent } from './components/modals/detail-task/detail-task
     EditCreateTaskComponent,
     CollaboratorsImagesComponent,
     AsignViewCollaboratorsComponent,
-    DetailTaskComponent
+    DetailTaskComponent,
+    FormatFinishDateComponent
   ],
   imports: [
     BrowserModule,

@@ -16,11 +16,6 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  formatDate(date:string){
-    let newDate = new Date(date);
-    return `${newDate .getDate()}/${newDate .getMonth()}/${newDate .getFullYear()}`;
-  }
-
   openDetailModal(){
     this.dialog.open(DetailTaskComponent, {
       data:{
@@ -29,10 +24,6 @@ export class TaskComponent implements OnInit {
       disableClose: true,
       width: '300px'
     })
-  }
-
-  getCountString(count){
-    return count == 1 ? `${count} colaborador` : `${count} colaboradores`;
   }
 
 }

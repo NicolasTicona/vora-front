@@ -2,8 +2,9 @@ ng-container(*ngIf="showProgress")
     mat-progress-bar(mode="indeterminate")
 
 header
-    h1(mat-dialog-title) {{data.modalTitle || 'Crear'}}
-    button(mat-button, (click)="closeModal()") Close
+    h1(mat-dialog-title) {{data.modalTitle}}
+    button(mat-icon-button, (click)="closeModal()")
+        mat-icon() close
 
 mat-dialog-content
 
@@ -16,22 +17,37 @@ mat-dialog-content
                 type="text", 
                 formControlName="name")
 
+            mat-error(*ngIf="_name.errors")
+                span El título es requerido
+
         mat-form-field.field-description
             mat-label Descripción
             textarea(
                 matInput,
                 maxLength="500",
+                mat-autosize="true",
+                matAutosizeMinRows="4",
+                matAutosizeMaxRows="8",
                 formControlName="description")
             mat-hint(align="end") {{_description.value?.length || 0}} / 500
+            
+            mat-error(*ngIf="_description.errors")
+                span La descripción es requerida
 
         mat-form-field.field-date
             mat-label Fecha límite
             input(
                 matInput, 
                 [matDatepicker]="picker",
+                [min]="minDate",
                 formControlName="finish_at")
             mat-datepicker-toggle(matSuffix, [for]="picker")
             mat-datepicker(#picker)
+
+            mat-error(*ngIf="_finishAt.errors")
+                span(*ngIf="_finishAt.errors?.required; else elseIfDate") La fecha es requerida
+                ng-template(#elseIfDate)
+                    span  La fecha no es válida 
 
         .group-collaborators
             span(*ngIf="collaboratorsView.length == 0") Agregar Collaboradores
@@ -44,11 +60,12 @@ mat-dialog-content
                 
                 mat-icon() add_circle
 
+
             collaborators-images([size]="'small'", [items]="collaboratorsView")
 
 mat-dialog-actions
     button(
         mat-raised-button, 
         color="primary",
-        [disabled]="form.invalid",
+        [disabled]="form.pristine || form.invalid",
         (click)="saveForm()") {{data.state == 'ACTUALIZAR' ? 'Guardar' : 'Crear' }} tarea

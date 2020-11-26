@@ -128,7 +128,7 @@
       }
     }
   },
-  "defaultProject": "vora",
+  "defaultProject": "vora-web",
   "cli": {
     "analytics": false
   }

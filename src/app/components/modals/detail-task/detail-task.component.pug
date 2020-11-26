@@ -3,13 +3,28 @@ ng-container(*ngIf="showProgress")
 
 header
     h1(mat-dialog-title) {{data.name}}
-    button(mat-button, (click)="closeModal()") Close
+    button(
+        mat-icon-button, 
+        mat-dialog-close,
+        (click)="closeModal()")
+        mat-icon() close
 
 mat-dialog-content
-    p {{data.description}}
 
-    p Fecha límite: {{formatDate(data.finish_at)}}
+    h3 {{data.description}}
 
-    collaborators-images([size]="'small'", [items]="collaborators")
+    format-finish-date([date]="data.finish_at")
 
-    button(mat-raised-button, (click)="openEditTaskModal()") Editar
+    mat-divider()
+
+    ng-container(*ngIf="collaborators.length > 0; else ngElse1")
+        collaborators-images([size]="'small'", [items]="collaborators")
+    
+    ng-template(#ngElse1)
+        p.ngElse1 No hay colaboradores asignados
+
+mat-dialog-actions
+    button(
+        mat-flat-button,
+        color="accent",
+        (click)="openEditTaskModal()") Editar

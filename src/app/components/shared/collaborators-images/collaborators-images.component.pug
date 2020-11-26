@@ -5,7 +5,7 @@
             *ngFor="let i of arr", 
             src="/assets/user.png", 
             alt="image",
-            [ngClass]="{'small-image': size == 'small'}")
+            [ngClass]="{'small-image': size === 'small'}")
 
     ng-container(*ngIf="items")
         img(
@@ -13,4 +13,4 @@
             src="/assets/user.png",
             alt="image",
             [matTooltip]="i.fullname",
-            [ngClass]="{'small-image': size == 'small'}")
+            [ngClass]="{'small-image': size === 'small'}")

@@ -1,9 +1,8 @@
-.task-container.sdw-str((click)="openDetailModal()")
-    h1 {{data.name}}
+mat-card.task-container((click)="openDetailModal()")
+    h1(mat-card-title) {{data.name}}
 
-    p {{data.description}}
+    mat-card-content
+        p {{data.description}}
 
-    p {{formatDate(data.finish_at)}}
-
-    p {{getCountString(data.count_users)}}
+        format-finish-date([date]="data.finish_at")
     //- collaborators-images([size]="'small'", [items]="data.collaborators")

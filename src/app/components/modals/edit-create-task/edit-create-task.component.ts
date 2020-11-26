@@ -17,6 +17,7 @@ export class EditCreateTaskComponent implements OnInit {
   form: FormGroup;
   showProgress: boolean = false;
   updateTaskAfterClosed: any = {};
+  minDate: Date = new Date();
   
   
   collaboratorsSaved: any[] = []; // vienen por bd
@@ -37,6 +38,10 @@ export class EditCreateTaskComponent implements OnInit {
     this.getCollaboratorsInTeam();
 
     this.initForm();
+
+    this.form.valueChanges.subscribe(res => {
+      console.log(this.form);
+    })
   }
 
   getCollaboratorsInTeam(){
@@ -52,7 +57,11 @@ export class EditCreateTaskComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(this.data.name, Validators.required),
       description: new FormControl(this.data.description, Validators.required),
-      finish_at: new FormControl(this.data.finish_at, Validators.required)
+      finish_at: new FormControl(new Date(this.data.finish_at), Validators.required)
+    })
+
+    this._finishAt.valueChanges.subscribe(res => {
+      console.log(this._finishAt.errors);
     })
 
     if(this.data.state == 'ACTUALIZAR' && Array.isArray(this.data.collaborators)){
@@ -170,5 +179,13 @@ export class EditCreateTaskComponent implements OnInit {
 
   get _description(){
     return this.form.controls['description'];
+  }
+
+  get _name(){
+    return this.form.controls['name'];
+  }
+
+  get _finishAt(){
+    return this.form.controls['finish_at'];
   }
 }

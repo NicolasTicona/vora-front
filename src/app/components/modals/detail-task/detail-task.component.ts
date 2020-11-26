@@ -11,7 +11,7 @@ import { EditCreateTaskComponent } from '../edit-create-task/edit-create-task.co
 export class DetailTaskComponent implements OnInit {
 
   showProgress = false;
-  collaborators: any[];
+  collaborators: any[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -37,7 +37,7 @@ export class DetailTaskComponent implements OnInit {
       data:{
         ...this.data,
         collaborators: this.collaborators,
-        modalTitle: 'Editar',
+        modalTitle: 'Editar tarea',
         state: 'ACTUALIZAR'
       },
       width: '300px',

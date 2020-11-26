@@ -48,7 +48,8 @@ export class DashboardComponent implements OnInit {
   createTask(){
     const dialogRef = this.dialog.open(EditCreateTaskComponent,{
       data: {
-        state: 'ASIGNAR'
+        state: 'ASIGNAR',
+        modalTitle: 'Crear tarea'
       },
       disableClose: true,
       width: "300px"
