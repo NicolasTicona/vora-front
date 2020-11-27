@@ -4,7 +4,7 @@
  */
 const fs = require('fs');
 const commonCliConfig = 'node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/common.js';
-const pugRules = ' { test: /\\.(pug|jade)$/, exclude: /\\.(include|partial)\\.(pug|jade)$/, use: [ { loader: "apply-loader" }, { loader: "pug-loader" } ] }, { test: /\\.(include|partial)\\.(pug|jade)$/, loader: "pug-loader" }';
+const pugRules = ' { test: /\\.(pug|jade)$/, exclude: /\\.(include|partial)\\.(pug|jade)$/, use: [ { loader: "apply-loader" }, { loader: "pug-loader" } ] }, { test: /\\.(include|partial)\\.(pug|jade)$/, loader: "pug-loader" },';
 
 
 fs.readFile(commonCliConfig, (err, data) => {
