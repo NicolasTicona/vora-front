@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class DashboardService {
@@ -39,6 +39,10 @@ export class DashboardService {
 
   editTask(data){
     return this.http.post(`${this.URL}/updateTask`, data, this.httpOptions);
+  }
+
+  deleteTask(data){
+    return this.http.post(`${this.URL}/deleteTask`, data, this.httpOptions)
   }
 
   getHeaders(params){

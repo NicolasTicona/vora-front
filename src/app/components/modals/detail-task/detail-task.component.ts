@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DashboardService } from 'src/app/services/dashboard.service';
 import { UsersService } from 'src/app/services/users.service';
 import { EditCreateTaskComponent } from '../edit-create-task/edit-create-task.component';
 
@@ -17,7 +19,9 @@ export class DetailTaskComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<DetailTaskComponent>,
-    private usersSrv: UsersService) { }
+    private snackbar: MatSnackBar,
+    private usersSrv: UsersService,
+    private dashboardSrv: DashboardService) { }
 
   ngOnInit(): void {
     this.getUsersInTask();
@@ -45,9 +49,27 @@ export class DetailTaskComponent implements OnInit {
     })
   }
 
-  formatDate(date:string){
-    let newDate = new Date(date);
-    return `${newDate .getDate()}/${newDate .getMonth()}/${newDate .getFullYear()}`;
+  deleteTask(){
+    this.showProgress = true;
+
+    console.log("eliminar tarea", this.data.task_id);
+
+    this.dashboardSrv.deleteTask({task_id: this.data.task_id}).subscribe((res: any) => {
+      
+      this.dashboardSrv.$updateTask.next({
+        state: 3,
+        task_id: this.data.task_id
+      })
+      
+      this.snackbar.open(res.response.statusMessage, '', {
+        duration: 2000
+      })
+
+      this.dialogRef.close();
+    }, err => {
+      console.log(err);
+    })
+
   }
 
   closeModal(){

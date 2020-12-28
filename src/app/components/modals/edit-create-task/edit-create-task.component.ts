@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { AsignViewCollaboratorsComponent } from '../asign-view-collaborators/asign-view-collaborators.component';
 import { SELECTION_STATES } from '../../../models/assignment-collaborators.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'modal-edit-create-task',
@@ -18,7 +19,8 @@ export class EditCreateTaskComponent implements OnInit {
   showProgress: boolean = false;
   updateTaskAfterClosed: any = {};
   minDate: Date = new Date();
-  
+  teamByParam: number;
+
   
   collaboratorsSaved: any[] = []; // vienen por bd
   collaboratorsAssigned: any[] = []; // se asignan solo en la vista
@@ -30,28 +32,21 @@ export class EditCreateTaskComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private dashboardSvc: DashboardService,
-    private usersSvc: UsersService,
     private snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<EditCreateTaskComponent>) { }
 
   ngOnInit(): void {
     this.getCollaboratorsInTeam();
-
     this.initForm();
 
-    this.form.valueChanges.subscribe(res => {
-      console.log(this.form);
-    })
+    console.log(this.data);
   }
 
   getCollaboratorsInTeam(){
-    this.usersSvc.getUsersInTeam({team_id: 4}).subscribe((res: any) => {
-      this.collaboratorsInTeam = [...res.response.users];
-    },err => {
-      console.log(err)
+    this.dashboardSvc.$obs_collaborators.subscribe((res: any) => {
+      this.collaboratorsInTeam = [...res];
     })
   }
-
  
   initForm(){
     this.form = new FormGroup({
@@ -122,7 +117,8 @@ export class EditCreateTaskComponent implements OnInit {
     let taskObj = {
       ...this.form.value,
       task_id: this.data.task_id,
-      collaborators: this.collaboratorsAssigned
+      team_id: this.data.team_id,
+      collaborators: this.collaboratorsAssigned,
     }
 
     if(this.data.state == 'ACTUALIZAR'){

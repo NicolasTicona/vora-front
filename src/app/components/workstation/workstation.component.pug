@@ -1,6 +1,6 @@
 .workstation-container
     mat-drawer-container(autosize)
-        mat-drawer(mode="side", opened, position="end")
+        mat-drawer(mode="side", [opened]="sidebarOpened", position="end")
             activitybar()
 
         workspace()

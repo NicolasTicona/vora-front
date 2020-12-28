@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module'; 
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './components/shared/shared.module';
+import { HomeModule } from './components/home/home.module';
+
 
 import { AppComponent } from './app.component';
 import { WorkstationComponent } from './components/workstation/workstation.component';
@@ -14,12 +13,9 @@ import { TeamDetailComponent } from './components/team-detail/team-detail.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TaskComponent } from './components/task/task.component';
 import { EditCreateTaskComponent } from './components/modals/edit-create-task/edit-create-task.component';
-import { CollaboratorsImagesComponent } from './components/shared/collaborators-images/collaborators-images.component';
 import { AsignViewCollaboratorsComponent } from './components/modals/asign-view-collaborators/asign-view-collaborators.component';
-import { DashboardService } from './services/dashboard.service';
-import { UsersService } from './services/users.service';
 import { DetailTaskComponent } from './components/modals/detail-task/detail-task.component';
-import { FormatFinishDateComponent } from './components/shared/format-finish-date/format-finish-date.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -32,22 +28,18 @@ import { FormatFinishDateComponent } from './components/shared/format-finish-dat
     DashboardComponent,
     TaskComponent,
     EditCreateTaskComponent,
-    CollaboratorsImagesComponent,
     AsignViewCollaboratorsComponent,
     DetailTaskComponent,
-    FormatFinishDateComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    ReactiveFormsModule, 
-    FormsModule,
-    HttpClientModule
+    HomeModule,
+    SharedModule
   ],
-  providers: [DashboardService, UsersService],
-  entryComponents: [EditCreateTaskComponent],
+  providers: [],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

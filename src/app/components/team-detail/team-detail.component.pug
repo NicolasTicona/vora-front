@@ -1,4 +1,16 @@
 .team-detail-container
-    h3 Vora / {{teamInfo?.name}}
+    .team-detail-logged
 
-    collaborators-images([items]="collaborators")
+        a(mat-icon-button, routerLink="/landing")
+            mat-icon undo
+
+        h3 Vora / {{teamInfo?.name}}
+
+        collaborators-images([items]="collaborators")
+
+    .team-sidebar-toggle
+        button(
+            mat-icon-button,
+            color="primary",
+            (click)="onToggleSidebar()")
+            mat-icon {{sidebarOpened ? 'close' : 'vertical_split'}}

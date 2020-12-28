@@ -1,0 +1,33 @@
+.login-container
+    .login-title
+        h1 Disfruta la experiencia de trabajar con Vora en tu equipo 
+
+    .login-card.mat-elevation-z8
+        ng-container(*ngIf="showProgress")
+            mat-progress-bar(mode="indeterminate")
+
+        .card-title
+            h2 Iniciar sesión
+
+        form([formGroup]="formLogin")
+            mat-form-field(appearance="outline", color="primary")
+                mat-label Correo electrónico
+                input(matInput, formControlName="email")
+
+                mat-error(*ngIf="_email.errors?.required") El campo es requerido
+                mat-error(*ngIf="_email.errors?.email") El campo no es válido
+
+            mat-form-field(appearance="outline", color="primary")
+                mat-label Contraseña
+                input(matInput, type="password", formControlName="password")
+
+                mat-error(*ngIf="_password.errors?.required") El campo es requerido
+
+
+            button(
+                mat-raised-button, 
+                color="accent",
+                [disabled]="formLogin.invalid", 
+                (click)="onLogIn()") Ingresar
+
+            span ¿Aún no tienes una cuenta? Regístrate

@@ -25,6 +25,7 @@ export class AsignViewCollaboratorsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
     this.setCollaboratorsSelection();
   }
 

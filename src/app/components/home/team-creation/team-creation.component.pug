@@ -1,0 +1,43 @@
+.creation-container
+    .stepper-container
+        mat-horizontal-stepper(linear, #stepper)
+            mat-step(editable)
+                ng-template(matStepLabel) Información
+                h2 Ingresa el nombre de tu equipo
+
+                mat-form-field(appearance="outline")
+                    input(
+                        matInput, 
+                        [formControl]="teamName",
+                        placeholder="Ejm: Smiledu" 
+                        maxLength="100")
+
+                br
+
+                button(mat-button, matStepperNext) Siguiente
+
+            mat-step(editable)
+                ng-template(matStepLabel) Colaboradores
+                h2 Selecciona tus colaboradores ( {{collaboratorsSelected.length}} )
+
+                mat-form-field(appearance="outline")
+                    mat-label Filtra por nombre
+                    input(matInput, [formControl]="filterInput")
+
+                mat-selection-list(#listCollabs, (selectionChange)="onSelectionCollaborators($event)")
+                    mat-list-option(
+                        *ngFor="let c of collaboratorsFiltered", 
+                        [value]="c.user_id",
+                        [selected]="isSelected(c.user_id)") {{c.fullname}}
+
+                button(mat-button, matStepperPrevious) Atrás
+                button(mat-button, matStepperNext) Siguiente
+
+            mat-step(editable)
+                ng-template(matStepLabel) Listo!
+                h2 Terminaste, confirma tu equipo
+
+                mat-spinner(*ngIf="showSpinner")
+
+                button(mat-button, matStepperPrevious) Atrás
+                button(mat-button, color="primary", (click)="onConfirmCreation()") Confirmar

@@ -1,0 +1,71 @@
+@import '_variables'
+    
+.landing-container
+    padding: 20px
+    background: #f2f2f2
+
+    header
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: space-between
+
+        .landing-title
+            h1 
+                font-size: 100px
+                line-height: 1
+                color: $graycolor
+
+            .landing-loggin
+                margin-top: 50px
+
+                a
+                    margin-right: 15px
+            
+
+main
+    margin-top: 100px
+
+    .landing-teams
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+        flex-wrap: wrap
+
+        .team-card.selected
+            order: -1
+            width: 70%
+
+        .team-card
+            width: 33%
+            margin-right: 15px
+            margin-bottom: 40px
+            padding: 15px
+            border-radius: 20px
+            background-color: #fff
+
+            .team-header
+                display: flex
+                align-items: baseline
+                color: $graycolor
+
+                h3
+                    font-size: 24px
+
+                span 
+                    margin-left: 10px
+
+            .team-collaborators
+                color: $graycolor
+
+            .team-info
+                margin-top: 15px
+                font-size: 20px
+                color: $graycolor
+
+            button
+                margin: 15px 10px 0 0
+                // width: 100%
+
+    // background-color: red
+

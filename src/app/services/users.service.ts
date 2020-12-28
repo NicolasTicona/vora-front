@@ -16,6 +16,10 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
+  getCollaborators(){
+    return this.http.get(`${this.URL}/getCollaborators`);
+  }
+
   getUsersInTeam(data){
     let params = new HttpParams();
     params = params.set('team_id', JSON.stringify(data.team_id))
@@ -34,6 +38,10 @@ export class UsersService {
     return this.http.post(`${this.URL}/removeUserFromTask`, data);
   }
 
+  userLogIn(data){
+    return this.http.post(`${this.URL}/login`, data);
+  }
+
   getHeaders(params){
     return  {
       headers: new HttpHeaders({
@@ -42,5 +50,6 @@ export class UsersService {
       params
     };
   }
+
 
 }
