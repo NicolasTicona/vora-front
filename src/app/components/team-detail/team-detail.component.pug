@@ -13,4 +13,4 @@
             mat-icon-button,
             color="primary",
             (click)="onToggleSidebar()")
-            mat-icon {{sidebarOpened ? 'close' : 'vertical_split'}}
+            mat-icon {{canToggle ? 'vertical_split' : (sidebarOpened ? 'close' : 'vertical_split')}}

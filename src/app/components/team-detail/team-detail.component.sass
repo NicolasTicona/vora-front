@@ -4,17 +4,24 @@
     justify-content: space-between
     align-items: center
     padding: 10px
-    height: 10vh
+    min-height: 10vh
     box-sizing: border-box
+    font-size: 16px
 
     .team-detail-logged
         display: flex
         align-items: center
+        flex-wrap: wrap
         
         h3
+            font-size: 1.5em
             margin: 0
 
-    .team-sidebar-toggle
-
-
+@media screen and ( max-width:  426px)
+    .team-detail-container
+        font-size: 12px
+        
+        .team-detail-logged
+            collaborators-images
+                width: 100%
 

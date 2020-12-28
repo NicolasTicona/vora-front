@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import {TEAM} from 'src/app/models/vora.model';
 import { GlobalService } from 'src/app/services/global.service';
@@ -13,12 +13,17 @@ export class TeamDetailComponent implements OnInit {
   collaborators = [];
   teamInfo : TEAM;
   sidebarOpened: boolean = false;
+  canToggle: boolean = false;
 
   constructor(
     private dashboardSvc: DashboardService,
     private globalSvc: GlobalService) { }
 
   ngOnInit(): void {
+    if(window.innerWidth <= 768){
+      this.canToggle = true;
+    }
+
     this.dashboardSvc.$obs_collaborators.subscribe(res => {
       this.collaborators = [...res];
     })
@@ -32,5 +37,4 @@ export class TeamDetailComponent implements OnInit {
     this.sidebarOpened = !this.sidebarOpened;
     this.globalSvc.$toggleSidebar.next(this.sidebarOpened)
   }
-
 }
