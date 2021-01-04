@@ -1,43 +1,85 @@
+ng-template(#step1Template)
+    h2.step-title Ingresa el nombre de tu equipo
+
+    mat-form-field(appearance="outline")
+        input.step-input(
+            matInput, 
+            [formControl]="teamName",
+            placeholder="Ejm: Smiledu" 
+            maxLength="100")
+
+ng-template(#step2Template)
+    h2.step-title Selecciona tus colaboradores ( {{collaboratorsSelected.length}} )
+
+    mat-form-field.step-input(appearance="outline")
+        mat-label Filtra por nombre
+        input(matInput, [formControl]="filterInput")
+
+    mat-selection-list(#listCollabs, (selectionChange)="onSelectionCollaborators($event)")
+        mat-list-option.step-option(
+            *ngFor="let c of collaboratorsFiltered", 
+            [value]="c.user_id",
+            [selected]="isSelected(c.user_id)") {{c.fullname}}
+
+ng-template(#step3Template)
+    h2.step-title Terminaste, confirma tu equipo
+    
+    mat-spinner(*ngIf="showSpinner")
+
+
+
 .creation-container
     .stepper-container
-        mat-horizontal-stepper(linear, #stepper)
-            mat-step(editable)
-                ng-template(matStepLabel) Información
-                h2 Ingresa el nombre de tu equipo
+        a(mat-icon-button, routerLink="/landing")
+            mat-icon undo
+            | Regresar
 
-                mat-form-field(appearance="outline")
-                    input(
-                        matInput, 
-                        [formControl]="teamName",
-                        placeholder="Ejm: Smiledu" 
-                        maxLength="100")
+    
+        ng-container(*ngIf="setOrientation == 'horizontal'")
+            mat-horizontal-stepper(linear, #stepper1)
+                mat-step(editable)
+                    ng-template(matStepLabel) Información
+                    ng-container(*ngTemplateOutlet="step1Template")
+                    br
 
-                br
+                    button.step-button(mat-button, matStepperNext) Siguiente
+                
 
-                button(mat-button, matStepperNext) Siguiente
+                mat-step(editable)
+                    ng-template(matStepLabel) Colaboradores
+                    ng-container(*ngTemplateOutlet="step2Template")
+                    br
 
-            mat-step(editable)
-                ng-template(matStepLabel) Colaboradores
-                h2 Selecciona tus colaboradores ( {{collaboratorsSelected.length}} )
+                    button.step-button(mat-button, matStepperPrevious) Atrás
+                    button.step-button(mat-button, matStepperNext) Siguiente
 
-                mat-form-field(appearance="outline")
-                    mat-label Filtra por nombre
-                    input(matInput, [formControl]="filterInput")
+                mat-step(editable)
+                    ng-template(matStepLabel) Listo!
+                    ng-container(*ngTemplateOutlet="step3Template")
 
-                mat-selection-list(#listCollabs, (selectionChange)="onSelectionCollaborators($event)")
-                    mat-list-option(
-                        *ngFor="let c of collaboratorsFiltered", 
-                        [value]="c.user_id",
-                        [selected]="isSelected(c.user_id)") {{c.fullname}}
+                    button.step-button(mat-button, matStepperPrevious) Atrás
+                    button.step-button(mat-button, color="primary", (click)="onConfirmCreation()") Confirmar
 
-                button(mat-button, matStepperPrevious) Atrás
-                button(mat-button, matStepperNext) Siguiente
+        ng-container(*ngIf="setOrientation == 'vertical'")
+            mat-vertical-stepper(linear, #stepper1)
+                mat-step(editable)
+                    ng-template(matStepLabel) Información
+                    ng-container(*ngTemplateOutlet="step1Template")
+                    br
 
-            mat-step(editable)
-                ng-template(matStepLabel) Listo!
-                h2 Terminaste, confirma tu equipo
+                    button.step-button(mat-button, matStepperNext) Siguiente
+                
 
-                mat-spinner(*ngIf="showSpinner")
+                mat-step(editable)
+                    ng-template(matStepLabel) Colaboradores
+                    ng-container(*ngTemplateOutlet="step2Template")
 
-                button(mat-button, matStepperPrevious) Atrás
-                button(mat-button, color="primary", (click)="onConfirmCreation()") Confirmar
+                    button.step-button(mat-button, matStepperPrevious) Atrás
+                    button.step-button(mat-button, matStepperNext) Siguiente
+
+                mat-step(editable)
+                    ng-template(matStepLabel) Listo!
+                    ng-container(*ngTemplateOutlet="step3Template")
+
+                    button.step-button(mat-button, matStepperPrevious) Atrás
+                    button.step-button(mat-button, color="primary", (click)="onConfirmCreation()") Confirmar

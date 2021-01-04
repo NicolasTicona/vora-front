@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { verify } from 'crypto';
 import { HomeService } from 'src/app/services/home.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -12,6 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class TeamCreationComponent implements OnInit {
 
   showSpinner: Boolean = false;
+  setOrientation: String = 'horizontal';
   teamName: FormControl;
   filterInput: FormControl;
   collaborators: any[] = [];
@@ -27,6 +29,10 @@ export class TeamCreationComponent implements OnInit {
   ngOnInit(): void {
     this.teamName = new FormControl('', Validators.required);
     this.filterInput = new FormControl();
+
+    if(window.innerWidth <= 768){
+      this.setOrientation = 'vertical';
+    }
 
     this.getCollaborators();
     this.onFilterCollaborators();
@@ -67,6 +73,9 @@ export class TeamCreationComponent implements OnInit {
     this.homeSvc.createTeam(teamObj).subscribe((res: any) => {
       console.log(res);
       this.showSpinner = false;
+
+      this.verifyTeam(res.response.teamID);
+
       setTimeout(() => {
         this.router.navigateByUrl(`/landing/${res.response.teamID}`)
       }, 2000)
@@ -74,6 +83,16 @@ export class TeamCreationComponent implements OnInit {
       console.log(err);
       this.showSpinner = false;
     })
+  }
+
+  verifyTeam(team_id){
+    let userLogged = JSON.parse(localStorage.getItem('userLogged'));
+
+    if(this.collaboratorsSelected.some(c => c == userLogged.user_id)){
+      userLogged.teams.push(team_id);
+
+      localStorage.setItem('userLogged', JSON.stringify(userLogged));
+    }
   }
 
   isSelected(id){

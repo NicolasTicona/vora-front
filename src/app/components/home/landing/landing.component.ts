@@ -92,7 +92,11 @@ export class LandingComponent implements OnInit {
   }
 
   isUserJoined(team_id){
-    return this.userLogged.teams.some(t => t == team_id);
+    if(this.userLogged && this.userLogged.teams){
+      return this.userLogged.teams.some(t => t == team_id);
+    } else{
+      return false;
+    }
   }
 
 }

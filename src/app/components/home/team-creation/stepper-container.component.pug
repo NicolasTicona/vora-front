@@ -1,0 +1,10 @@
+
+.stepper(*ngIf="false; else else1")
+    div.chao
+        ng-content
+    //- mat-horizontal-stepper.stepper-wrap(linear, #stepper, )
+    //-     ng-content()
+
+ng-template(#else1)
+    mat-horizontal-stepper.hola(linear, #stepper)
+        ng-content()

@@ -1,14 +1,47 @@
 @import '_variables'
     
 .creation-container
-    padding: 20px
     box-sizing: border-box
     height: 100vh
+    padding: 20px
     background: #f2f2f2
     display: flex 
     flex-direction: column
     justify-content: center
+    font-size: 16px
 
     .stepper-container
         width: 70%
         margin: auto
+
+        a 
+            color: $graycolor
+
+.step-title
+    font-size: 2em
+    color: $graycolor
+
+.step-input
+    font-size: 1.1em
+
+.step-option
+    font-size: 1.2em
+    color: $graycolor
+
+.step-button
+    font-size: 1em    
+
+@media screen and ( max-width: 426px) 
+
+    .creation-container
+        font-size: 10px
+        
+        .stepper-container
+            width: 90%
+
+@media screen and ( max-width: 321px)
+    .creation-container
+        font-size: 8px
+
+        .stepper-container
+            width: 95%

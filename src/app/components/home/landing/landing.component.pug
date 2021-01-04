@@ -4,16 +4,16 @@
             h1 Trabaja colavorativo con Vora
 
             .landing-loggin
-                button(
+                button.login-btn(
                     *ngIf="!isLogged",
                     mat-raised-button, 
                     color="accent", 
                     (click)="onRedirectBySession()") Iniciar Sesión / Registrate
 
 
-                a(mat-raised-button, routerLink="/teamcreation") Crea un equipo
+                a.login-btn(mat-raised-button, routerLink="/teamcreation") Crea un equipo
 
-                button(
+                button.login-btn(
                     *ngIf="isLogged",
                     mat-raised-button, 
                     color="warn", 
