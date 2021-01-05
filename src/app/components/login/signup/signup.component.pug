@@ -1,0 +1,41 @@
+.signup-container
+    form([formGroup]="formSignup")
+
+
+        mat-form-field(appearance="outline", color="primary")
+            mat-label Nombre
+            input(matInput, formControlName="name", maxlength="100")
+            mat-error(*ngIf="_name.errors?.required") El campo es requerido
+
+        mat-form-field.input-middle(appearance="outline", color="primary")
+            mat-label Apellido Paterno
+            input(matInput, formControlName="patsurname", maxlength="100")
+            mat-error(*ngIf="_patsurname.errors?.required") El campo es requerido
+
+        mat-form-field.input-middle(appearance="outline", color="primary")
+            mat-label Apellido Materno
+            input(matInput, formControlName="matsurname", maxlength="100")
+            mat-error(*ngIf="_matsurname.errors?.required") El campo es requerido
+
+        mat-form-field(appearance="outline", color="primary")
+            mat-label Correo electrónico
+            input(matInput, formControlName="email", maxlength="100")
+
+            mat-error(*ngIf="_email.errors?.required") El campo es requerido
+            mat-error(*ngIf="_email.errors?.email") El campo no es válido
+
+        mat-form-field.input-middle(appearance="outline", color="primary")
+            mat-label Contraseña
+            input(matInput, type="password", formControlName="password", maxlength="100", (keyup)="checkConfirmPassword()")
+            mat-error(*ngIf="_password.errors?.required") El campo es requerido
+
+        mat-form-field.input-middle(appearance="outline", color="primary")
+            mat-label Confirmar contraseña
+            input(matInput, type="password", [formControl]="confirmPassword", maxlength="100", (keyup)="checkConfirmPassword()")
+
+            mat-error(*ngIf="_confirmPass.errors?.invalid") No coincide
+        button(
+            mat-raised-button, 
+            color="accent",
+            [disabled]="formSignup.invalid", 
+            (click)="onSignUp()") Ingresar

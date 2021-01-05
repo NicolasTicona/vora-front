@@ -16,6 +16,8 @@ import { EditCreateTaskComponent } from './components/modals/edit-create-task/ed
 import { AsignViewCollaboratorsComponent } from './components/modals/asign-view-collaborators/asign-view-collaborators.component';
 import { DetailTaskComponent } from './components/modals/detail-task/detail-task.component';
 import { LoginComponent } from './components/login/login.component';
+import { SigninComponent } from './components/login/signin/signin.component';
+import { SignupComponent } from './components/login/signup/signup.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { LoginComponent } from './components/login/login.component';
     AsignViewCollaboratorsComponent,
     DetailTaskComponent,
     LoginComponent,
+    SigninComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

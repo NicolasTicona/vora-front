@@ -12,8 +12,8 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class LoginComponent implements OnInit {
 
-  showProgress: Boolean = false;
-  formLogin: FormGroup;
+  showProgress: boolean = false;
+  isLogin: boolean = false;
 
   constructor(
     private authSvc: AuthService,
@@ -22,43 +22,25 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.formLogin = new FormGroup({
-      email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', [Validators.required])
+    
+  }
+
+  onChangeSignUp(){
+    this.isLogin = !this.isLogin;
+  }
+
+  onLoginSuccess(user){
+    this.authSvc.saveCredentialsOnStorage(user);
+
+    let message = `Bienvenido ${user.fullname}!`;
+
+    this.snackbar.open(message, '', {
+      duration: 2000
     })
+
+    this.router.navigate(['/landing']);
   }
 
-  onLogIn(){
-    this.showProgress = true;
-
-    this.userSvc.userLogIn(this.formLogin.value).subscribe((res: any) => {
-      this.showProgress = false;
-
-      console.log(res.response.user);
-
-      this.authSvc.saveCredentialsOnStorage(res.response.user);
-
-      let message = `Bienvenido ${res.response.user.fullname}!`;
-      this.snackbar.open(message, '', {
-        duration: 2000
-      })
-
-      this.router.navigate(['/landing']);
-    }, err => {
-      console.log(err);
-      this.showProgress = false; 
-      this.snackbar.open(err.error.err, '', {
-        duration: 2000
-      })
-    })
-  }
-
-  get _email(){
-    return this.formLogin.get('email');
-  }
-
-  get _password(){
-    return this.formLogin.get('password');
-  }
+  
 
 }

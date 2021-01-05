@@ -1,0 +1,39 @@
+@import '_variables'
+
+.signup-container
+    font-size: 16px
+    form
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: space-between
+
+        mat-form-field
+            width: 100%
+
+        mat-form-field.input-middle
+            width: 48%
+
+        button
+            width: 70%
+            font-size: 1em
+            margin: 1.5em 0px 1.5em 0px
+
+        
+
+
+@media screen and ( max-width: 1025px )
+    .signup-container
+        font-size: 15px
+
+@media screen and ( max-width: 768px)
+    .signup-container
+        font-size: 14px
+                
+@media screen and ( max-width: 426px) 
+    .signup-container
+        font-size: 10px
+
+@media screen and ( max-width: 321px )
+    .signup-container
+        font-size: 8px

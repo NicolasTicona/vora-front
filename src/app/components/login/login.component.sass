@@ -31,19 +31,10 @@
                 color: $graycolor
                 font-size: 2.5em
                 text-align: center
-        form
-            display: flex
-            flex-direction: column
         
-            button
-                width: 70%
-                font-size: 1em
-                margin: 1.5em 0px 1.5em 0px
-
-            span
-                color: $graycolor
-                font-size: .8em
-
+        span
+            color: $graycolor
+            font-size: .8em
 
 @media screen and ( max-width: 1025px )
     .login-container
@@ -55,16 +46,9 @@
         font-size: 14px
 
         .login-title
+            width: auto
             h1
                 font-size: 4em
-
-                
-@media screen and ( max-width: 426px) 
-    .login-container
-        font-size: 10px
-
-        .login-title
-            width: auto
 
         .login-card
             position: relative
@@ -74,6 +58,10 @@
             width: 60%
             margin-top: 4em
 
+                
+@media screen and ( max-width: 426px) 
+    .login-container
+        font-size: 10px
 
 @media screen and ( max-width: 321px )
     .login-container

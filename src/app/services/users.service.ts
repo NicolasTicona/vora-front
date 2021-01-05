@@ -42,6 +42,10 @@ export class UsersService {
     return this.http.post(`${this.URL}/login`, data);
   }
 
+  userSignUp(data){
+    return this.http.post(`${this.URL}/signup`, data);
+  }
+
   getHeaders(params){
     return  {
       headers: new HttpHeaders({
