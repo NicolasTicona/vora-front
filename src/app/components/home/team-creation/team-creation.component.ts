@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { verify } from 'crypto';
+import { AuthService } from 'src/app/services/auth.service';
 import { HomeService } from 'src/app/services/home.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -13,6 +14,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class TeamCreationComponent implements OnInit {
 
   showSpinner: Boolean = false;
+  userLogged: any;
   setOrientation: String = 'horizontal';
   teamName: FormControl;
   filterInput: FormControl;
@@ -23,10 +25,15 @@ export class TeamCreationComponent implements OnInit {
   constructor(
     private userSvc: UsersService,
     private homeSvc: HomeService,
+    private authSvc: AuthService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.userLogged = this.authSvc.getUserInSession();
+    this.collaboratorsSelected.push(this.userLogged.user_id);
+
+
     this.teamName = new FormControl('', Validators.required);
     this.filterInput = new FormControl();
 
@@ -67,11 +74,13 @@ export class TeamCreationComponent implements OnInit {
     this.showSpinner = true;
     let teamObj = {
       name: this.teamName.value,
-      collaborators: this.collaboratorsSelected
+      collaborators: this.collaboratorsSelected,
+      creator_id: this.userLogged.user_id
     }
 
+    console.log(teamObj);
+
     this.homeSvc.createTeam(teamObj).subscribe((res: any) => {
-      console.log(res);
       this.showSpinner = false;
 
       this.verifyTeam(res.response.teamID);
@@ -86,17 +95,18 @@ export class TeamCreationComponent implements OnInit {
   }
 
   verifyTeam(team_id){
-    let userLogged = JSON.parse(localStorage.getItem('userLogged'));
+    if(this.collaboratorsSelected.some(c => c == this.userLogged.user_id)){
+      this.userLogged.teams.push(team_id);
 
-    if(this.collaboratorsSelected.some(c => c == userLogged.user_id)){
-      userLogged.teams.push(team_id);
-
-      localStorage.setItem('userLogged', JSON.stringify(userLogged));
+      this.authSvc.saveCredentialsOnStorage(this.userLogged);
     }
   }
 
   isSelected(id){
-    return this.collaboratorsSelected.includes(id);
+    return this.collaboratorsSelected.includes(id) || this.isCreator(id);
   }
 
+  isCreator(id){
+    return this.userLogged.user_id === id;
+  }
 }

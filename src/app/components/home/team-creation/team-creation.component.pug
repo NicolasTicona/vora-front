@@ -19,7 +19,8 @@ ng-template(#step2Template)
         mat-list-option.step-option(
             *ngFor="let c of collaboratorsFiltered", 
             [value]="c.user_id",
-            [selected]="isSelected(c.user_id)") {{c.fullname}}
+            [disabled]="isCreator(c.user_id)",
+            [selected]="isSelected(c.user_id)") {{c.fullname}} {{isCreator(c.user_id) ? '(Creador)' : ''}}
 
 ng-template(#step3Template)
     h2.step-title Terminaste, confirma tu equipo

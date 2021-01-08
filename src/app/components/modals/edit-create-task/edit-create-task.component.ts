@@ -7,6 +7,7 @@ import { AsignViewCollaboratorsComponent } from '../asign-view-collaborators/asi
 import { SELECTION_STATES } from '../../../models/assignment-collaborators.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'modal-edit-create-task',
@@ -16,11 +17,11 @@ import { ActivatedRoute } from '@angular/router';
 export class EditCreateTaskComponent implements OnInit {
 
   form: FormGroup;
+  userLogged: any;
   showProgress: boolean = false;
   updateTaskAfterClosed: any = {};
   minDate: Date = new Date();
   teamByParam: number;
-
   
   collaboratorsSaved: any[] = []; // vienen por bd
   collaboratorsAssigned: any[] = []; // se asignan solo en la vista
@@ -32,14 +33,14 @@ export class EditCreateTaskComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private dashboardSvc: DashboardService,
+    private authSvc: AuthService,
     private snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<EditCreateTaskComponent>) { }
 
   ngOnInit(): void {
+    this.userLogged = this.authSvc.getUserInSession();
     this.getCollaboratorsInTeam();
     this.initForm();
-
-    console.log(this.data);
   }
 
   getCollaboratorsInTeam(){
@@ -119,6 +120,7 @@ export class EditCreateTaskComponent implements OnInit {
       task_id: this.data.task_id,
       team_id: this.data.team_id,
       collaborators: this.collaboratorsAssigned,
+      creator_id: this.userLogged.user_id
     }
 
     if(this.data.state == 'ACTUALIZAR'){
@@ -168,7 +170,6 @@ export class EditCreateTaskComponent implements OnInit {
   }
 
   closeModal(){
-    console.log(this.updateTaskAfterClosed);
     if(this.updateTaskAfterClosed?.update) this.updateTaskWhenRemoving()
     this.dialogRef.close();
   }
