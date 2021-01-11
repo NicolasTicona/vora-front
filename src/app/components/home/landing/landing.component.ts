@@ -32,7 +32,6 @@ export class LandingComponent implements OnInit {
       this.getUserInSession();
 
       this.teamIdLastCreated = Number(this.route.snapshot.paramMap.get('id'));
-
     }
 
     this.getTeams();
@@ -41,7 +40,9 @@ export class LandingComponent implements OnInit {
   getTeams(){
     this.homeSvc.getTeams().subscribe((res: any) => {
       this.teams = res.response.teams;
+      console.log(this.teams);
     }, err => {
+      console.log(err);
     })
   }
 

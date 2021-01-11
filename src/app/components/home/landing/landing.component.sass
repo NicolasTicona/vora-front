@@ -1,9 +1,10 @@
 @import '_variables'
 
 .landing-container
-    overflow-x: hidden
+    min-height: 100vh
     padding: 20px
     background: #f2f2f2
+    overflow-x: hidden
     font-size: 16px
 
     header
@@ -51,14 +52,20 @@ main
             .team-header
                 display: flex
                 align-items: baseline
+                justify-content: space-between
                 color: $graycolor
 
-                h3
-                    font-size: 2em
+                div
+                    display: flex
+                    align-items: baseline
 
-                span 
-                    font-size: 0.8em
-                    margin-left: 0.7em
+    
+                    h3
+                        font-size: 2em
+
+                    span 
+                        font-size: 0.8em
+                        margin-left: 0.7em
 
             .team-collaborators
                 color: $graycolor

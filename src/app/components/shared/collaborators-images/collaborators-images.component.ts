@@ -9,8 +9,7 @@ export class CollaboratorsImagesComponent implements OnInit {
 
   @Input() size: String;
   @Input() items: any[];
-
-  arr = [1,2,3,4];
+  @Input() justName: String;
 
   constructor() { }
 

@@ -1,13 +1,12 @@
 .collaborators-images-container
     
-    ng-container(*ngIf="!items")
-        img(
-            *ngFor="let i of arr", 
+    ng-container(*ngIf="justName")
+        img.small-image(
             src="/assets/user.png", 
             alt="image",
-            [ngClass]="{'small-image': size === 'small'}")
+            [matTooltip]="justName")
 
-    ng-container(*ngIf="items")
+    ng-container(*ngIf="items && !justname")
         img(
             *ngFor="let i of items",
             src="/assets/user.png",
