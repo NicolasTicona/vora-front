@@ -13,7 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class LoginComponent implements OnInit {
 
   showProgress: boolean = false;
-  isLogin: boolean = false;
+  isLogin: boolean = true;
 
   constructor(
     private authSvc: AuthService,

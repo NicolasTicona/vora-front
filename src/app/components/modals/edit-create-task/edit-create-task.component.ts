@@ -123,6 +123,8 @@ export class EditCreateTaskComponent implements OnInit {
       creator_id: this.userLogged.user_id
     }
 
+    console.log(taskObj)
+
     if(this.data.state == 'ACTUALIZAR'){
       this.dashboardSvc.editTask(taskObj).subscribe((res: any) => {
         this.showProgress = false;

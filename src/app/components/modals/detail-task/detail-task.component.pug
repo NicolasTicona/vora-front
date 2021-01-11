@@ -11,7 +11,9 @@ header
 
 mat-dialog-content
 
-    p {{data.description}}
+    p Creador: {{data.fullname}}
+
+    p Descripción: {{data.description}}
 
     format-finish-date([date]="data.finish_at")
 

@@ -52,8 +52,6 @@ export class DetailTaskComponent implements OnInit {
   deleteTask(){
     this.showProgress = true;
 
-    console.log("eliminar tarea", this.data.task_id);
-
     this.dashboardSrv.deleteTask({task_id: this.data.task_id}).subscribe((res: any) => {
       
       this.dashboardSrv.$updateTask.next({
